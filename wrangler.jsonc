@@ -1,0 +1,6 @@
+{
+  "name": "vrfkyc",
+  "main": "worker/entry.mjs",
+  "compatibility_date": "2026-10-01",
+  "rules": [{"type":"Text","globs":["**/*.html"],"fallthrough":true}]
+}

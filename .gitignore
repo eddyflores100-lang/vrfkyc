@@ -23,3 +23,9 @@ INGRESOS*.md
 KYC_BUSINESS*.md
 .zscripts/
 .dev_pid
+
+.env.*
+!.env.example
+db/*.db
+*.tsbuildinfo
+legacy/

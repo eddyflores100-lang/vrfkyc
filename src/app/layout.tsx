@@ -1,37 +1,4 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "un sitio",
-  description: "memoria, diario y mensajes.",
-  robots: { index: false, follow: false },
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="es" suppressHydrationWarning className="dark">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
-      >
-        {children}
-        <Toaster />
-      </body>
-    </html>
-  );
-}
+import type { Metadata } from 'next';
+import './globals.css';
+export const metadata: Metadata = {title:'VRFKYC — Clear evidence. Connected workflows.',description:'Source-linked screening for people, businesses and agents. MCP tools and transparent scope.',robots:{index:true,follow:true}};
+export default function RootLayout({children}:Readonly<{children:React.ReactNode}>) { return <html lang="en"><body>{children}</body></html>; }

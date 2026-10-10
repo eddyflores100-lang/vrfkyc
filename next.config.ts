@@ -1,14 +1,3 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  output: "standalone",
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  reactStrictMode: false,
-  allowedDevOrigins: [
-    "preview-chat-1e8a8569-511a-4559-a8a9-433c63658e23.space-z.ai",
-  ],
-};
-
+import type { NextConfig } from 'next';
+const nextConfig: NextConfig = {output:'standalone',reactStrictMode:true,outputFileTracingIncludes:{'/site':['./public/index.html']},async headers(){return [{source:'/(.*)',headers:[{key:'X-Content-Type-Options',value:'nosniff'},{key:'Referrer-Policy',value:'no-referrer'},{key:'Permissions-Policy',value:'camera=(), microphone=(), geolocation=()'}]}]}};
 export default nextConfig;
