@@ -21,3 +21,5 @@ Remaining boundaries:
 Tests cover mock provider failures, scopes, quota boundaries, MCP lifecycle and export source checks. They do not certify matching recall, latest provider schema compatibility, external agent compatibility or visual browser behavior.
 
 Additional validation: official MCP JavaScript SDK connected through the Fetch transport, initialized, listed 10 tools, called screen_demo, read a source resource and retrieved the review prompt. GLEIF, Wikidata and Federal Register adapters each returned five live contextual results for public test queries. This does not certify every external client or provider schema. CSL/OpenSanctions live screening remains unverified without fresh configured credentials.
+
+GitHub Pages repair: removed ten incomplete imported submodule links from VRFKYC (their original repositories were not changed). Added .nojekyll so the static HTML is published without parsing unrelated template Markdown.

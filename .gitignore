@@ -29,3 +29,7 @@ KYC_BUSINESS*.md
 db/*.db
 *.tsbuildinfo
 legacy/
+
+# Imported unrelated submodule references are not VRFKYC dependencies.
+alethech-publish-2/
+memex/
