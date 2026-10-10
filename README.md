@@ -1,6 +1,6 @@
-# VRFKYC — evidence for people and agents
+# VRFKYC — clear reviews for people, businesses and developers
 
-Counterparty identity-candidate screening by AliceLabs LLC. A responsive original interface, six focused data adapters and stateless MCP. This release **does not** offer automated clearance, calibrated criminal-risk scoring, complete KYC, verified PEP identity, persistent customer audit records or active billing.
+A human-first counterparty review workspace by AliceLabs LLC, with separate business and developer/API/MCP paths. A responsive original interface, six focused data adapters and stateless MCP. This release **does not** offer automated clearance, calibrated criminal-risk scoring, complete KYC, verified PEP identity, persistent customer audit records or active billing.
 
 ## Run
 
