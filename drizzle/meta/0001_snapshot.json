@@ -1,0 +1,133 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "ac7163b1-5cd0-43df-95ad-06f63bfd6f78",
+  "prevId": "7572b838-1393-4cec-bd19-55245eb5c24f",
+  "tables": {
+    "vrf_accounts": {
+      "name": "vrf_accounts",
+      "columns": {
+        "account_key": {
+          "name": "account_key",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "audience": {
+          "name": "audience",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'person'"
+        },
+        "plan": {
+          "name": "plan",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'free'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "terms_version": {
+          "name": "terms_version",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "accepted_at": {
+          "name": "accepted_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "use_purpose": {
+          "name": "use_purpose",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "account_audience": {
+          "name": "account_audience",
+          "value": "\"vrf_accounts\".\"audience\" IN ('person', 'business', 'developer')"
+        },
+        "account_plan": {
+          "name": "account_plan",
+          "value": "\"vrf_accounts\".\"plan\" = 'free'"
+        }
+      }
+    },
+    "vrf_monthly_usage": {
+      "name": "vrf_monthly_usage",
+      "columns": {
+        "account_key": {
+          "name": "account_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "period": {
+          "name": "period",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "used": {
+          "name": "used",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "vrf_monthly_usage_account_key_period_pk": {
+          "columns": [
+            "account_key",
+            "period"
+          ],
+          "name": "vrf_monthly_usage_account_key_period_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "usage_bound": {
+          "name": "usage_bound",
+          "value": "\"vrf_monthly_usage\".\"used\" BETWEEN 0 AND 5"
+        }
+      }
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}

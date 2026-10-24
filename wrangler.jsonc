@@ -1,6 +1,6 @@
 {
   "name": "vrfkyc",
-  "main": "worker/entry.mjs",
-  "compatibility_date": "2026-10-01",
-  "rules": [{"type":"Text","globs":["**/*.html"],"fallthrough":true}]
+  "main": "dist/server/index.js",
+  "compatibility_date": "2026-10-23",
+  "vars": { "VRFKYC_LIVE_DATA_ENABLED": "false" }
 }

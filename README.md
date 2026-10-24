@@ -1,61 +1,50 @@
-# VRFKYC — clear reviews for people, businesses and developers
+# VRFKYC · AliceLabs LLC
 
-A human-first counterparty review workspace by AliceLabs LLC, with separate business and developer/API/MCP paths. A responsive original interface, six focused data adapters and stateless MCP. This release **does not** offer automated clearance, calibrated criminal-risk scoring, complete KYC, verified PEP identity, persistent customer audit records or active billing.
+Counterparty evidence for people, businesses and agents. Version 0.4.1 is a **free beta** with fictional examples, account-linked monthly limits and structured API/MCP discovery. It does not verify identity or give an automatic compliance verdict.
 
-## Run
+## Website and application
+
+- Public website: `https://vrfkyc.alicelabs.site` (GitHub Pages; requires the custom-domain DNS configuration).
+- Hosted workspace: https://asterscreen.toastyrice32.chatgpt.site/#workspace
+- Native sign-in uses ChatGPT and its account email. This is not an independent email/password login service.
+- GitHub Pages runs only the fixed fictional example locally. Account actions open the hosted workspace, with no shared cookies or API keys in static files.
+
+## Run and verify
+
+Use Node 24 (minimum 22.13 for the SQLite-based tests).
 
 ```sh
 npm ci
-cp .env.example .env.local
-# Set a strong VRFKYC_API_TOKEN and your selected provider keys in .env.local.
-npm run dev
 npm test
-npm run typecheck
-npm run build
-npm start
+npm run check
+npm run validate
+npm run dev          # public backend preview; no fabricated signed-in identity
+npm run dev:pages    # static website preview
 ```
 
-Next.js rewrites `/` to the HTML workspace route `/site`. The landing is also available as `index.html` for GitHub Pages: static hosting runs fictional demos locally and **cannot host MCP or live API endpoints**. No API key belongs in that file or a browser bundle.
+`npm run build` generates `dist/server/index.js` for Sites and the isolated `pages/` publication. `worker/core.mjs`, `worker/landing.html`, `worker/legal.mjs` and `worker/entry.mjs` are the runtime sources. The generated bundle is not edited by hand. Drizzle schemas and migrations are in `db/` and `drizzle/`; generate new schema-only migrations with `npm run db:generate` and never rewrite applied history.
 
-## Sources and actual startup costs
+## Accounts and limits
 
-| Adapter | Purpose | Data-access cost basis |
-|---|---|---|
-| CSL | U.S. consolidated export restrictions | Free subscription key; quotas apply |
-| OpenSanctions | Hosted default matching collection | 2,000 initial business-email trial credits; paid prepaid bundles afterward |
-| GLEIF | LEI/company reference candidates | Public LEI data access |
-| Wikidata | Public entity candidates | Structured data CC0, API policy applies |
-| Federal Register | Regulatory document context | Public API without key; verify official publication |
-| GDELT | News link discovery | Public endpoint, fair use; article copyright remains |
+The hosted application requires a trusted Sites identity and explicit acceptance of the current beta terms before a search. Every free account receives five successful queries per UTC calendar month, shared across person/company/context and REST/MCP routes. The atomic database counter enforces parallel requests and restarts. Provider errors and `not_screened` results release their reserved credit. Deleting a profile, switching audiences or signing out does not reset this month's allowance.
 
-Infrastructure/design/development are supplied at $0 cash cost by the owner. **There is no $12,500 required launch budget.** Initial data API spend can be $0 with CSL and provider trials. Tax depends on LLC/state/ownership/income facts not established here; no invented tax amount. Payment processing is separate and checkout is not activated. See [selection review](docs/API-SELECTION.md).
+My account supports audience preferences, JSON account export and profile deletion. It stores a pseudonymous identifier, audience, acceptance version/time and usage counts, without searched names or report notes. Previous-month counters are removed during normal account access. Downloads and notes remain under the user's control.
 
-## MCP and HTTP
+## API / MCP
 
-- `POST /mcp` and `/api/mcp`: initialize, discovery, tools, resources and prompts.
-- Protocols: 2025-11-25, 2025-03-26 and Sites discovery 2026-07-28. Stateless JSON response, no SSE GET (405). Notifications receive 202.
-- Public tools: `get_capabilities`, `list_sources`, `get_report_schema`, `screen_demo`.
-- Authorized live tools: `screen_person`, `screen_company`, `search_legal_entities`, `search_public_entities`, `search_regulatory_notices`, `search_news_context`.
-- `GET /openapi.json`, `/api/manifest`, `/.well-known/mcp.json`, `/api/status`, `/api/sources`, `/llms.txt`, `/llms-full.txt`.
-- `POST /api/screen`: `{name,type,country?,birthDate?,provider?,mode?}`. Types person/company; provider csl/opensanctions; mode demo/live.
-- `POST /api/context`: `{query,source}` where source is gleif/wikidata/federal_register/gdelt.
+- `POST /api/mcp` and `/mcp`: stateless MCP with ten tools, resources and a review prompt.
+- Public discovery: `GET /api/status`, `/api/sources`, `/api/manifest`, `/openapi.json`, `/llms.txt`.
+- Account: `GET`, `POST`, `DELETE /api/account`; plans: `GET /api/plans`.
+- Search: `POST /api/screen`; context: `POST /api/context`.
+- Public MCP tools: `get_capabilities`, `list_sources`, `get_report_schema`.
+- All hosted search tools, including `screen_demo`, require a signed-in account, current acceptance and available quota.
 
-Live calls require `Authorization: Bearer <VRFKYC_API_TOKEN>`. This is a **pilot shared-token model**, not self-service multi-tenant customer accounts. Protect and rotate tokens. Public demos have per-instance limits. For distributed deployments add perimeter limits; in-memory limits cannot provide global quotas. OpenSanctions credit-consuming requests are blocked unless durable Upstash quota counters are configured; the quota store fails closed. `DAILY_QUERY_LIMIT` defaults to 100 authorized calls, shared across the token's live tools.
+Original source records and scope travel with results. Unknown demo names return `not_screened`, never a fabricated clearance. Live empty results are limited to the provider scope. Exports support JSON, formula-neutralized CSV, escaped HTML and browser print-to-PDF.
 
-Sites platform may additionally mediate authentication for `/mcp`. The public `/api/mcp` alias has the same application policy. Each external agent client needs compatibility verification; do not claim all clients certified. No OAuth authorization server is implemented in this app.
+## Current boundaries
 
-## Report behavior
+CSL, OpenSanctions, GLEIF, Wikidata, Federal Register and GDELT adapters are implemented. **Live data and billing are not activated.** A provider name in the interface does not mean its source is configured. Check `/api/status`; failed or unavailable queries never become clean reports. Provider access, licensing, private support contacts and verified company contracting details must be completed before live commercial use. Proposed paid plans cannot be purchased or activated through the browser.
 
-Fictional fixtures: Alex Morgan / Harbor Example LLC. Other demo subjects are `not_screened`, never fabricated no-match clearances. Live empty results are `no_candidates_in_scope`. Provider errors stay not screened. CSL returns at most 100 candidates and explicitly reports truncation. Country/type are review inputs; CSL is not filtered by them to avoid hiding records with missing identifiers. Similarity is provider supplied and can be null.
+No server report archive, document verification, automatic clearance, continuous monitoring or complete KYC is promised. Existing historical files from earlier imported work are not part of this build or the Pages artifact. Do not restore the legacy Next.js workflow as the application entry point.
 
-Local exports: JSON, CSV with formula neutralization, escaped HTML and browser print-to-PDF. Reviewer notes remain in the tab. Reports are user-exported evidence, **not signed or tamper-proof certificates**.
-
-## Before customer launch
-
-Configure keys legitimately; rotate the previously exposed OpenSanctions key. Confirm commercial source terms, usage policies and trial conditions. Verify AliceLabs business details and finalize privacy/DPA/terms. Add multi-tenant authorization and durable audit storage before promising them. Configure global abuse protection before a large public campaign. The repository history contains old embedded credentials and imported workspace data: deleting current files does not erase history. See [security review](docs/SECURITY-REVIEW.md).
-
-The original imported memory/notes APIs are removed from the deployed route tree. A local excluded `legacy/` copy preserves unrelated source during development. Their historical versions remain in Git history; VRFKYC does not expose those endpoints.
-
-## Optional Cloudflare Worker deployment
-
-`worker/entry.mjs` uses the same tested core and HTML. Deploy with Wrangler (`npx wrangler deploy`); the HTML Text rule is in wrangler.jsonc. Add secrets with the hosting CLI/dashboard; no secrets in vars or Git. This deployment target is provided, not deployed to your Cloudflare account in this change.
+See [deployment and DNS](docs/DEPLOYMENT.md), [release notes](docs/RELEASE-0.4.1.md), and [legal notices](docs/legal/legal.md). The public policy pages describe the implemented beta and do not constitute legal certification.

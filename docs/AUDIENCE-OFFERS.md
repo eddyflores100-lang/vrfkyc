@@ -14,4 +14,4 @@ Pilot and integration briefs are generated locally as text downloads. They colle
 
 Future commercial packaging could use single reviews for occasional users, scoped recurring access for businesses, and metered integrations for developers. These are packaging directions to validate with customers, not active products or approved prices. Provider costs, licensed resale rights, support scope and verified business terms must be settled before sale.
 
-Validation: existing service/MCP tests, TypeScript and production build pass. HTML structure, unique IDs, internal anchors, audience order, script syntax and multiline local brief export were checked. Visual/browser interaction QA remains unverified because no supported browser-control capability was available in the managed environment.
+Validation: 29 service, account and UI regression tests pass, including static custom-domain behavior and explicit terms acceptance. JavaScript syntax and generated Worker validation pass. See docs/DEPLOYMENT.md for the isolated Pages publication and hosted account boundary.
