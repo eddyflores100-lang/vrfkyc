@@ -15,7 +15,7 @@ await writeFile('worker/index.js',bundle);
 await cp('.openai/hosting.json','dist/.openai/hosting.json');
 
 await rm('pages',{recursive:true,force:true});await mkdir('pages',{recursive:true});
-const staticHtml=html.replace('name="vrfkyc-runtime" content="server"','name="vrfkyc-runtime" content="static"').replace('</head>','<link rel="canonical" href="https://'+domain+'/"></head>');
+const staticHtml=html.replace('name="vrfkyc-runtime" content="server"','name="vrfkyc-runtime" content="static"').replace('1. Choose a person or company. 2. Sign in with ChatGPT using your email. 3. Review and save a report.', '1. Choose a person or company. 2. Open the fictional example. 3. Review and save the report. Sign in to the secure workspace for your account.').replace('</head>','<link rel="canonical" href="https://'+domain+'/"></head>');
 await writeFile('pages/index.html',staticHtml);
 await writeFile('pages/.nojekyll','');
 await writeFile('pages/CNAME',domain+'\n');
