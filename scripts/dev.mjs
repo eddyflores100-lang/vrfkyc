@@ -14,7 +14,8 @@ createServer(async(req,res)=>{
    const path=resolve('pages','.'+(url.pathname.endsWith('/')?url.pathname+'index.html':url.pathname));
    if(!path.startsWith(resolve('pages')+sep))throw Error('Invalid path');
    let data;try{data=await readFile(path)}catch{res.writeHead(404);res.end('Not found');return}
-   res.setHeader('Content-Type',path.endsWith('.json')?'application/json':path.endsWith('.html')?'text/html; charset=utf-8':'text/plain');res.end(data);return;
+   const type=path.endsWith('.svg')?'image/svg+xml':path.endsWith('.ico')?'image/x-icon':path.endsWith('.png')?'image/png':path.endsWith('.json')?'application/json':path.endsWith('.html')?'text/html; charset=utf-8':'text/plain';
+   res.setHeader('Content-Type',type);res.end(data);return;
   }
   const chunks=[];for await(const c of req)chunks.push(c);
   const request=new Request(url,{method:req.method,headers:req.headers,...(['GET','HEAD'].includes(req.method)?{}:{body:Buffer.concat(chunks)})});
