@@ -1,5 +1,10 @@
 # VRFKYC · AliceLabs LLC
 
+[![Verification and Pages](https://github.com/eddyflores100-lang/vrfkyc/actions/workflows/vrfkyc.yml/badge.svg)](https://github.com/eddyflores100-lang/vrfkyc/actions/workflows/vrfkyc.yml)
+[![Node.js 24](https://img.shields.io/badge/Node.js-24-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Version](https://img.shields.io/badge/version-0.4.1-blue)](https://github.com/eddyflores100-lang/vrfkyc/releases)
+
+
 Counterparty evidence for people, businesses and agents. Version 0.4.1 is a **free beta** with fictional examples, account-linked monthly limits and structured API/MCP discovery. It does not verify identity or give an automatic compliance verdict.
 
 ## Website and application
@@ -47,4 +52,14 @@ CSL, OpenSanctions, GLEIF, Wikidata, Federal Register and GDELT adapters are imp
 
 No server report archive, document verification, automatic clearance, continuous monitoring or complete KYC is promised. Existing historical files from earlier imported work are not part of this build or the Pages artifact. Do not restore the legacy Next.js workflow as the application entry point.
 
-See [deployment and DNS](docs/DEPLOYMENT.md), [release notes](docs/RELEASE-0.4.1.md), and [legal notices](docs/legal/legal.md). The public policy pages describe the implemented beta and do not constitute legal certification.
+## Documentation map
+
+- [Deployment and DNS](docs/DEPLOYMENT.md)
+- [Release notes — 0.4.1](docs/RELEASE-0.4.1.md)
+- [Legal notices](docs/legal/legal.md)
+- [Security reporting](SECURITY.md)
+- [Contribution and local verification](CONTRIBUTING.md)
+- [Open issues](https://github.com/eddyflores100-lang/vrfkyc/issues)
+- [Releases](https://github.com/eddyflores100-lang/vrfkyc/releases)
+
+The public policy pages describe the implemented beta and do not constitute legal certification.
